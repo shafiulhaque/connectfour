@@ -1,19 +1,21 @@
 # Connect Four Game
 
-A simple Connect Four game built with React and TypeScript using Vite as the development server and build tool.
+A simple Connect Four game built with **React** and **TypeScript** using **Yarn** and **Vite**.
 
 ## Features
 
 - Classic 6 rows × 7 columns Connect Four grid
 - Two players: Red and Yellow
 - Click a column to drop a disc
-- Detects winner and displays a message
+- Winner detection with message
+- Restart game functionality
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js and npm installed
+- Node.js installed
+- Yarn installed (`npm install --global yarn` or use `corepack enable`)
 
 ### Installation
 
@@ -27,13 +29,13 @@ A simple Connect Four game built with React and TypeScript using Vite as the dev
 3. Install dependencies:
 
    ```bash
-   npm install
+   yarn
    ```
 
 4. Run the development server:
 
    ```bash
-   npm run dev
+   yarn dev
    ```
 
 5. Open your browser and visit:
@@ -44,7 +46,6 @@ A simple Connect Four game built with React and TypeScript using Vite as the dev
 
 ## Scripts
 
-- `npm run dev` — Start development server
-- `npm run build` — Build production files
-- `npm run preview` — Preview production build locally
-
+- `yarn dev` — Start development server
+- `yarn build` — Build production files
+- `yarn preview` — Preview production build locally
