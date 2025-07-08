@@ -38,7 +38,7 @@ const Board: React.FC<Props> = ({ winner, setWinner }) => {
 
   const checkWin = (grid: string[][], row: number, col: number, player: string): boolean => {
     const directions = [
-      [0, 1], [1, 0], [1, 1], [1, -1] // setting it to horizontal, vertical, and diagonal
+      [0, 1], [1, 0], [1, 1], [1, -1] // horizontal, vertical, diagonal
     ];
 
     return directions.some(([dx, dy]) => {

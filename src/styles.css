@@ -16,7 +16,7 @@ body {
   display: grid;
   grid-template-rows: repeat(6, 1fr);
   gap: 5px;
-  background-color: #1c2127;
+  background-color: #004080;
   padding: 10px;
   border-radius: 10px;
 }
@@ -50,4 +50,19 @@ body {
 
 .disc.yellow {
   background-color: yellow;
+}
+
+.restart-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: #333;
+  color: white;
+  cursor: pointer;
+}
+
+.restart-button:hover {
+  background-color: #555;
 }
