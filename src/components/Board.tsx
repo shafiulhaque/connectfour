@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Cell from './Cell';
 
-const ROWS = 6;
-const COLS = 7;
+const TOTAL_ROWS = 6;
+const TOTAL_COLUMNS = 7;
 
 type Player = 'Red' | 'Yellow';
 
@@ -13,14 +13,14 @@ type Props = {
 
 const Board: React.FC<Props> = ({ winner, setWinner }) => {
   const [grid, setGrid] = useState<string[][]>(
-    Array.from({ length: ROWS }, () => Array(COLS).fill(''))
+    Array.from({ length: TOTAL_ROWS }, () => Array(TOTAL_COLUMNS).fill(''))
   );
   const [currentPlayer, setCurrentPlayer] = useState<Player>('Red');
 
   const handleClick = (col: number) => {
     if (winner) return;
 
-    for (let row = ROWS - 1; row >= 0; row--) {
+    for (let row = TOTAL_ROWS - 1; row >= 0; row--) {
       if (!grid[row][col]) {
         const newGrid = grid.map(r => [...r]);
         newGrid[row][col] = currentPlayer;
@@ -36,32 +36,42 @@ const Board: React.FC<Props> = ({ winner, setWinner }) => {
     }
   };
 
-  const checkWin = (grid: string[][], row: number, col: number, player: string): boolean => {
+  const checkWin = (grid: string[][], row: number, column: number, player: string): boolean => {
     const directions = [
-      [0, 1], [1, 0], [1, 1], [1, -1] // horizontal, vertical, diagonal
+      [0, 1], // horizontal
+      [1, 0], // vertical
+      [1, 1], // diagonal down-right
+      [1, -1] // diagonal down-left
     ];
 
-    return directions.some(([dx, dy]) => {
-      let count = 1;
-      for (let dir of [-1, 1]) {
-        let r = row + dir * dx;
-        let c = col + dir * dy;
-        while (r >= 0 && r < ROWS && c >= 0 && c < COLS && grid[r][c] === player) {
-          count++;
-          r += dir * dx;
-          c += dir * dy;
+    return directions.some(([rowDelta, colDelta]) => {
+      let consecutiveCount = 1;
+      for (let direction of [-1, 1]) {
+        let currentRow = row + direction * rowDelta;
+        let currentColumn = column + direction * colDelta;
+
+        while (
+          currentRow >= 0 &&
+          currentRow < TOTAL_ROWS &&
+          currentColumn >= 0 &&
+          currentColumn < TOTAL_COLUMNS &&
+          grid[currentRow][currentColumn] === player
+        ) {
+          consecutiveCount++;
+          currentRow += direction * rowDelta;
+          currentColumn += direction * colDelta;
         }
       }
-      return count >= 4;
+      return consecutiveCount >= 4;
     });
   };
 
   return (
     <div className="board">
-      {grid.map((row, rIdx) => (
-        <div key={rIdx} className="row">
-          {row.map((cell, cIdx) => (
-            <Cell key={cIdx} value={cell} onClick={() => handleClick(cIdx)} />
+      {grid.map((rowArray, rowIndex) => (
+        <div key={rowIndex} className="row">
+          {rowArray.map((cellValue, columnIndex) => (
+            <Cell key={columnIndex} value={cellValue} onClick={() => handleClick(columnIndex)} />
           ))}
         </div>
       ))}
